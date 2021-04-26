@@ -1,0 +1,86 @@
+﻿<Window x:Class="myCompany.LoginW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:myCompany"
+        mc:Ignorable="d"
+        FlowDirection="RightToLeft"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="כניסה למערכת"
+        SizeToContent="WidthAndHeight"
+        Height="200"
+        Width="330"
+        FontSize="19"
+        FontFamily="Arial"
+        FontWeight="Regular"
+        Background="FloralWhite"
+        FocusManager.FocusedElement="{Binding ElementName=txUser}">
+    <Grid Margin="3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="משתמש:"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="3" />
+        <TextBox Name="txUser"
+                 Width="200"
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 Margin="3"
+                 TextChanged="txUser_TextChanged"/>
+        <TextBlock Text="סיסמה:"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="3" />
+        <PasswordBox Name="txPassWord"
+                     Width="200"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="3"
+                     PasswordChanged="txPassWord_PasswordChanged"/>
+        <Grid Grid.Row="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="3"
+              Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="3"
+                        Grid.Row="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <Button Name="bLogin"
+                        Width="104"
+                        Height="33"
+                        IsDefault="True"
+                        Click="bLogin_Click"
+                        Margin="0,0,10,0"
+                        Content="כניסה"
+                        Style="{StaticResource RButton}" />
+                <Button Name="bExit"
+                        IsCancel="True"
+                        Content="ביטול"
+                        Width="104"
+                        Height="33"
+                        Click="bExit_Click"
+                        Style="{StaticResource RButton}" />
+            </StackPanel>
+            <TextBlock Name="txErrMsg"
+                       Grid.Row="1"
+                       Margin="3"
+                       Foreground="Red" />
+        </Grid>
+    </Grid>
+</Window>

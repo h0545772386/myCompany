@@ -1,0 +1,48 @@
+﻿<Window x:Class="myCompany.Windows.MessageW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:myCompany.Windows"
+        mc:Ignorable="d"
+        Height="300"
+        Width="500"
+        FlowDirection="RightToLeft"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="הודעה למשתמש"
+        SizeToContent="WidthAndHeight"
+        FontSize="19"
+        FontFamily="Arial"
+        FontWeight="Regular"
+        Background="FloralWhite">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <RichTextBox x:Name="rtbMsg"
+                     Background="Transparent" />
+        <StackPanel Margin="3"
+                    Grid.Row="2"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Button Name="bOK"
+                    Width="140"
+                    Height="46"
+                    IsDefault="True"
+                    
+                    Margin="0,0,10,0"
+                    Content="אישור"
+                    Style="{StaticResource RButton}" />
+            <Button Name="bExit"
+                    IsCancel="True"
+                    Content="סגור"
+                    Width="140"
+                    Height="46"
+                    
+                    Style="{StaticResource RButton}" />
+        </StackPanel>
+    </Grid>
+</Window>

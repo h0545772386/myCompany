@@ -1,0 +1,43 @@
+﻿
+CREATE TABLE [dbo].[Workers](
+	[WrkrNumber] [int] NOT NULL PRIMARY KEY ,
+	[IDN] [nvarchar](20) NOT NULL DEFAULT ' ',
+	[FullName] [nvarchar](100) NOT NULL,
+	[UserName] [nvarchar](50) NOT NULL,
+	[UserPass] [nvarchar](100) NOT NULL,
+	[IsSysAdmin] [bit] NOT NULL DEFAULT 0,
+	[Email] [nvarchar](100) NULL,
+	[Phone1] [nvarchar](100) NULL,
+	[Phone2] [nvarchar](100) NULL,
+	[Status] [nvarchar](100) NULL,
+	[IsManager] [bit] NOT NULL DEFAULT 0,
+	[RolId] [int] NOT NULL DEFAULT 0,
+	[DeprId] [int] NOT NULL DEFAULT 0,
+	[ManagerId] [int] NOT NULL DEFAULT 0,
+	[City1] [nvarchar](200) NULL,
+	[Address1] [nvarchar](200) NULL,
+	[BankNumber] [int] NOT NULL DEFAULT 0,
+	[BnkBrnchNum] [int] NOT NULL DEFAULT 0,
+	[BnkAccountNum] [nvarchar](100) NULL,	
+	[Gender] [nvarchar](100) NULL,
+	[HourlyPrice] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[TripPrice] [decimal] (6, 2) NOT NULL DEFAULT 0,	
+	[IsHourly] [bit] NOT NULL DEFAULT 0,
+	[IsGlobally] [bit] NOT NULL DEFAULT 0,	
+	[GloballyTotal] [decimal] (10, 2) NOT NULL DEFAULT 0)
+
+
+CREATE TABLE [dbo].[WorkRoles](
+	[RolId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY ,
+	[RoleName] [nvarchar](100) NOT NULL,
+	[RoleDescr] [nvarchar](300) NOT NULL,
+	[Status] [nvarchar](100) NULL)
+
+CREATE TABLE [dbo].[Departments](
+	[DeprId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY ,
+	[DeprName] [nvarchar](100) NOT NULL,
+	[DeprDescr] [nvarchar](300) NOT NULL,
+	[Status] [nvarchar](100) NULL)
+
+
+

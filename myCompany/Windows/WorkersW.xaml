@@ -1,0 +1,169 @@
+﻿<Window x:Class="myCompany.WorkersW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:myCompany"
+        mc:Ignorable="d"
+        FontSize="19"
+        FontFamily="Arial"
+        FontWeight="Regular"
+        Background="FloralWhite"
+        Title="תוכנה לניהול עובדים"
+        FlowDirection="RightToLeft"
+        WindowStyle="ThreeDBorderWindow"
+        WindowStartupLocation="CenterOwner"
+        Loaded="Window_Loaded"
+        ContentRendered="Window_ContentRendered"
+        Closed="Window_Closed">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Name="AddNewWorker"
+                    Margin="3"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Click="AddNewWorker_Click"
+                    Content="עובד חדש"
+                    FontSize="19"
+                    Height="40"
+                    Width="140"
+                    FontWeight="Medium"
+                    Style="{StaticResource RButton}" />
+            <Button Name="bBack"
+                    Margin="3"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    Click="bBack_Click"
+                    Content="חזרה"
+                    FontSize="19"
+                    Height="40"
+                    Width="140"
+                    FontWeight="Medium"
+                    Style="{StaticResource RButton}" />
+            <TextBlock Text="חיפוש עובד"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Margin="3"
+                       VerticalAlignment="Center" />
+            <TextBox Name="tbSearch"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Width="300"
+                     Margin="3"
+                     HorizontalAlignment="Left"
+                     TextChanged="TbSearch_TextChanged" />
+            <TextBlock Text="כלול מחוקים"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="3"
+                       Grid.Row="2"
+                       Grid.Column="0" />
+            <CheckBox Name="cbAll"
+                      Grid.Column="1"
+                      Grid.Row="2"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
+                      Width="300"
+                      FontSize="16"
+                      Margin="3"
+                      Checked="cbAll_Checked"
+                      Unchecked="cbAll_Unchecked" />
+        </Grid>
+        <GroupBox Name="GBWorkers"
+                  Margin="0 8 0 0"
+                  Grid.Row="2"
+                  HeaderStringFormat="נמצאו {0} רשומות"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+            <DataGrid x:Name="DGWorkers"
+                      Margin="3 8 3 8"
+                      AutoGenerateColumns="False"
+                      Background="Transparent"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserResizeRows="False"
+                      IsReadOnly="True"
+                      MouseDoubleClick="DGWorkers_MouseDoubleClick"
+                      SelectionMode="Single"
+                      ItemsSource="{Binding}"
+                      AlternatingRowBackground="AliceBlue"
+                      FontSize="19"
+                      FontWeight="Medium"
+                      GridLinesVisibility="All"
+                      EnableRowVirtualization="True"
+                      EnableColumnVirtualization="True"
+                      VirtualizingPanel.IsVirtualizing="False"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                      ScrollViewer.CanContentScroll="True">
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Status}"
+                                         Value="InActive">
+                                <Setter Property="Foreground"
+                                        Value="Tomato" />
+                            </DataTrigger>
+                            <Trigger Property="DataGridCell.IsSelected"
+                                     Value="True">
+                                <Setter Property="Foreground"
+                                        Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Background"
+                                        Value="LightGoldenrodYellow" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Foreground"
+                                        Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridHyperlinkColumn Width="Auto"
+                                             Binding="{Binding Path=WrkrNumber}"
+                                             Header="מס עובד">
+                        <DataGridHyperlinkColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <EventSetter Event="Hyperlink.Click"
+                                             Handler="OnHyperlinkClick" />
+                            </Style>
+                        </DataGridHyperlinkColumn.ElementStyle>
+                    </DataGridHyperlinkColumn>
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=FullName}"
+                                        Header="שם עובד" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WrkrDepartment}"
+                                        Header="מחלקה" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=Email}"
+                                        Header="כתובת מייל" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=Phone1}"
+                                        Header="טלפון" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=Phone2}"
+                                        Header="טלפון" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+    </Grid>
+</Window>
