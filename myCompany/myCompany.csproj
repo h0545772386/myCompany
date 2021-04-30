@@ -68,12 +68,31 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Department.cs" />
+    <Compile Include="Classes\Shift.cs" />
     <Compile Include="Classes\WorkRole.cs" />
     <Compile Include="Classes\DB_Provider.cs" />
     <Compile Include="Classes\UTILS.cs" />
     <Compile Include="Classes\Worker.cs" />
+    <Compile Include="Windows\WorkerDetailsW.xaml.cs">
+      <DependentUpon>WorkerDetailsW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WorkRoleW.xaml.cs">
+      <DependentUpon>WorkRoleW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WorkRolesW.xaml.cs">
+      <DependentUpon>WorkRolesW.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MessageW.xaml.cs">
       <DependentUpon>MessageW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SettingsW.xaml.cs">
+      <DependentUpon>SettingsW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DerprmntsW.xaml.cs">
+      <DependentUpon>DerprmntsW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DerprmntW.xaml.cs">
+      <DependentUpon>DerprmntW.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WorkerW.xaml.cs">
       <DependentUpon>WorkerW.xaml</DependentUpon>
@@ -87,6 +106,18 @@
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WorkerDetailsW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\WorkRoleW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\WorkRolesW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\LoginW.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -111,6 +142,18 @@
     <Page Include="Windows\MessageW.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SettingsW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DerprmntsW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\DerprmntW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\WorkerW.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -153,7 +196,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="TextFile1.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="DB scripts.txt" />
   </ItemGroup>

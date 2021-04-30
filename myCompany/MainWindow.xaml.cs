@@ -62,5 +62,10 @@ namespace myCompany
         {
 
         }
+
+        private void bExit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

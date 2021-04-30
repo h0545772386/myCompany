@@ -14,6 +14,7 @@ namespace myCompany
 
         public virtual DbSet<Worker> Workers { get; set; }
         public virtual DbSet<WorkRole> WorkRoles { get; set; }
+        public virtual DbSet<Shift> Shifts { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,6 +27,41 @@ namespace myCompany
                 .HasPrecision(6, 2);
 
             modelBuilder.Entity<Worker>()
+                .Property(e => e.GloballyTotal)
+                .HasPrecision(10, 2);
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.WHTotalHours)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.WH100P)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.WH125P)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.WH150P)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.WH175P)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.WH200P)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.HourlyPrice)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
+                .Property(e => e.TripPrice)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<Shift>()
                 .Property(e => e.GloballyTotal)
                 .HasPrecision(10, 2);
         }

@@ -26,6 +26,27 @@ CREATE TABLE [dbo].[Workers](
 	[IsGlobally] [bit] NOT NULL DEFAULT 0,	
 	[GloballyTotal] [decimal] (10, 2) NOT NULL DEFAULT 0)
 
+CREATE TABLE [dbo].[WorkHours](
+	[WHId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[DOW] [nvarchar](100) NULL DEFAULT ' ',
+	[WHDate] [int] NOT NULL DEFAULT 0,    /* YYYYMMDD */
+	[Numer] [int] NOT NULL DEFAULT 0,
+	[WHIn] [int] NOT NULL DEFAULT 0,     /* HHMM */
+	[WHOut] [int] NOT NULL DEFAULT 0,    /* HHMM */
+	[WHTotalHours] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WH100P] [decimal] (6, 2) NOT NULL DEFAULT 0,  
+	[WH125P] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WH150P] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WH175P] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WH200P] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WrkrNumber] [int] NOT NULL DEFAULT 0,
+	[IsHourly] [bit] NOT NULL DEFAULT 0,
+	[HourlyPrice] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[TripPrice] [decimal] (6, 2) NOT NULL DEFAULT 0,	
+	[IsGlobally] [bit] NOT NULL DEFAULT 0,
+	[GloballyTotal] [decimal] (10, 2) NOT NULL DEFAULT 0,
+	[Status] [nvarchar](100) NULL)
+
 
 CREATE TABLE [dbo].[WorkRoles](
 	[RolId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY ,

@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:myCompany"
         mc:Ignorable="d"
         Title="תוכנה לניהול עובדים"
-        Height="600"
-        Width="220"
+        Height="550"
+        Width="170"
         Background="FloralWhite"
         ResizeMode="NoResize"
         FlowDirection="RightToLeft"
@@ -64,6 +64,15 @@
                     IsDefault="True"
                     Content="ניהול"
                     Click="bSetting_Click"
+                    Style="{StaticResource RButton}" />
+            <Button Name="bExit"
+                    Margin="3 3 3 0"
+                    Height="46"
+                    FontSize="21"
+                    FontWeight="Medium"
+                    IsDefault="True"
+                    Content="יציאה"
+                    Click="bExit_Click"
                     Style="{StaticResource RButton}" />
         </StackPanel>
         <StackPanel Grid.Row="1">

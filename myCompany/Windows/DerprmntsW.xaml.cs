@@ -19,10 +19,10 @@ namespace myCompany
     /// <summary>
     /// Interaction logic for WorkersW.xaml
     /// </summary>
-    public partial class WorkersW : Window
+    public partial class DerprmntsW : Window
     {
         List<Worker> LW;
-        public WorkersW()
+        public DerprmntsW()
         {
             InitializeComponent();
         }
@@ -92,15 +92,23 @@ namespace myCompany
         {
             Init1();
         }
+
+        private void DGWorkers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
         private void OnHyperlinkClick(object sender, RoutedEventArgs e)
         {
             Worker worker = null;
             if (DGWorkers.SelectedItem != null)
+            {
                 worker = DGWorkers.SelectedItem as Worker;
+            }
 
             if (worker == null)
+            {
                 return;
-
+            }
             worker.VS = ViewState.Edit;
             WorkerW ww = new WorkerW(worker);
             ww.Owner = this;
@@ -138,31 +146,6 @@ namespace myCompany
         private void Window_Closed(object sender, EventArgs e)
         {
             this.Owner.Activate();
-        }
-
-        private void DGWorkers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ShowWorkerDeatils();
-        }
-        private void bWorkerDetails_Click(object sender, RoutedEventArgs e)
-        {
-            ShowWorkerDeatils();
-        }
-
-        private void ShowWorkerDeatils()
-        {
-            Worker worker = null;
-            if (DGWorkers.SelectedItem != null)
-                worker = DGWorkers.SelectedItem as Worker;
-
-            if (worker == null)
-            {
-                MessageBox.Show("שגיאה !!", "לא נבחר עובד להצגה", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            WorkerDetailsW wdw = new WorkerDetailsW(worker);
-            wdw.Owner = this;
-            wdw.ShowDialog();
         }
     }
 }

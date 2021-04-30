@@ -21,13 +21,13 @@ namespace myCompany
     /// <summary>
     /// Interaction logic for WorkersW.xaml
     /// </summary>
-    public partial class WorkerW : Window
+    public partial class DerprmntW : Window
     {
         Worker worker;
         List<WorkRole> LRols;      // רשימת תפקידים
         List<Worker> LManagers;    // רשימת מנהלים
         List<Department> LDeprs;   // רשימת מחלקות
-        public WorkerW(Worker worker = null)
+        public DerprmntW(Worker worker = null)
         {
             InitializeComponent();
             if (worker != null)
