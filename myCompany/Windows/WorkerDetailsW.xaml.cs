@@ -24,9 +24,9 @@ namespace myCompany
     public partial class WorkerDetailsW : Window
     {
         Worker worker;
-        List<WorkRole> LRols;      // רשימת תפקידים
-        List<Worker> LManagers;    // רשימת מנהלים
-        List<Department> LDeprs;   // רשימת מחלקות
+        List<Shift> LSH;
+        List<ShiftView> LSHV;
+
         public WorkerDetailsW(Worker worker)
         {
             InitializeComponent();
@@ -40,6 +40,8 @@ namespace myCompany
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
+            dpDate1.SelectedDate = DateTime.Today.AddDays(1 + DateTime.Today.Day * -1);
+            dpDate2.SelectedDate = dpDate1.SelectedDate.Value.AddMonths(1).AddDays(-1);
             Init1();
         }
 
@@ -53,26 +55,45 @@ namespace myCompany
 
         private void GetRecords()
         {
+            var date_from = dpDate1.SelectedDate.Value.DateToINT_YYYYMMDD();
+            var date_to = dpDate2.SelectedDate.Value.DateToINT_YYYYMMDD();
             using (var db = new Model1())
             {
-                LRols = db.WorkRoles.Where(tt => tt.Status == "Active").ToList();
-                LDeprs = db.Departments.Where(tt => tt.Status == "Active").ToList();
-                LManagers = db.Workers.Where(tt => tt.IsManager && tt.Status == "Active").ToList();
+                LSH = db.Shifts.Where(tt => tt.WrkrNumber == worker.WrkrNumber && tt.WHDate >= date_from && tt.WHDate <= date_to && tt.Status == "פעיל").ToList();
             }
-
             Inint1();
-
             this.DataContext = worker;
         }
 
         private void Inint1()
         {
+            foreach (var item in LSH)
+            {
+                LSHV.Add(item.Convert2ShiftView());
+            }
 
+            GBShiftsView.Header = LSHV.Count.ToString();
+            DGShiftsView.ItemsSource = LSHV;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             this.Owner.Activate();
+        }
+
+        private void dpDate1_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Init1();
+        }
+
+        private void dpDate2_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Init1();
+        }
+
+        private void DGShiftsView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

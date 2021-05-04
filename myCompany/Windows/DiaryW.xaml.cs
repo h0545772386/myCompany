@@ -178,11 +178,21 @@ namespace myCompany
 
             using (var db = new Model1())
             {
-                db.Shifts.AddRange(LSH);
+                var save_shifts = db.Shifts.ToList().Where(x => LSH.Any(y => y.WHDate == x.WHDate)).ToList();  // שליפת רשומות קיימות לפי תאריך
+                foreach (var item in LSH)
+                {
+                    var sh = save_shifts.FirstOrDefault(tt => tt.WrkrNumber == item.WrkrNumber && // בדיקה אם קיימת רשומה כבר עם הנתונים
+                                                              tt.WHDate == item.WHDate &&
+                                                              tt.WHIn == item.WHIn &&
+                                                              tt.WHOut == item.WHOut &&
+                                                              tt.Status == "פעיל");
+                    if (sh == null)
+                        db.Shifts.Add(item);
+                }
+
                 db.SaveChanges();
                 bSave.IsEnabled = false;
             }
-
             this.Close();
         }
 
