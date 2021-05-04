@@ -69,6 +69,8 @@
     </ApplicationDefinition>
     <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\LoadShifts.cs" />
+    <Compile Include="Classes\ShiftView.cs" />
+    <Compile Include="Classes\TableCSV.cs" />
     <Compile Include="Classes\Shift.cs" />
     <Compile Include="Classes\WorkRole.cs" />
     <Compile Include="Classes\DB_Provider.cs" />
@@ -76,6 +78,9 @@
     <Compile Include="Classes\Worker.cs" />
     <Compile Include="Windows\DiaryW.xaml.cs">
       <DependentUpon>DiaryW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WorkerShiftsW.xaml.cs">
+      <DependentUpon>WorkerShiftsW.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WorkerDetailsW.xaml.cs">
       <DependentUpon>WorkerDetailsW.xaml</DependentUpon>
@@ -112,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\DiaryW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\WorkerShiftsW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

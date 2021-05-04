@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace myCompany
 {
@@ -39,6 +36,80 @@ namespace myCompany
                 sum += res;
             }
             return sum % 10 == 0;
+        }
+
+        public static string ConvertTime(string Hour)  // "HH:MM
+        {
+            string ConvertedHour = "";
+            string[] arr = Hour.Split(':');
+            int hh = Convert.ToInt32(arr[0]);
+            int mm = Convert.ToInt32(arr[1]);
+            if (hh == 0)
+            {
+                ConvertedHour = "00:";
+            }
+            else
+            {
+                if (hh < 10)
+                {
+                    ConvertedHour = "0" + hh.ToString() + ":";
+                }
+                else
+                {
+                    ConvertedHour = hh.ToString() + ":";
+                }
+            }
+            if (mm == 0)
+            {
+                ConvertedHour += "00";
+            }
+
+            else
+            {
+                if (mm < 10)
+                {
+                    ConvertedHour += "0" + mm.ToString();
+                }
+                else
+                {
+                    ConvertedHour += mm.ToString();
+                }
+            }
+            return ConvertedHour;
+        }
+
+        public static string ConvertOver24(string Hour)  // "HH:MM
+        {
+            string[] arr = Hour.Split(':');
+            int hh = Convert.ToInt32(arr[0]);
+            hh += 24;
+            return hh.ToString() + ":" + arr[1];
+        }
+
+        public static string DateToString_YYYYMMDD(this DateTime d)
+        {
+            int Year = d.Year;
+            int Month = d.Month;
+            int Day = d.Day;
+
+            return Year.ToString() +
+                   (Month < 10 ? "0" + Month.ToString() : Month.ToString()) +
+                   (Day < 10 ? "0" + Day.ToString() : Day.ToString());
+        }
+
+        public static int DateToINT_YYYYMMDD(this DateTime d)
+        {
+            int i = 0;
+            int.TryParse(DateToString_YYYYMMDD(d), out i);
+            return i;
+        }
+
+        public static DateTime INT2Date(this int YYYYMMDD)
+        {
+            int Year = YYYYMMDD / 10000;
+            int Month = (YYYYMMDD / 100) % 100;
+            int Day = YYYYMMDD % 100;
+            return new DateTime(Year, Month, Day);
         }
 
     }

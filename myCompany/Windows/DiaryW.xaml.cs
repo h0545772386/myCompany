@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace myCompany
     /// </summary>
     public partial class DiaryW : Window
     {
-        private List<Department> LD;
+        private List<Worker> LWS;
+        private List<ShiftView> LSHV;
         public DiaryW()
         {
             InitializeComponent();
@@ -43,19 +45,10 @@ namespace myCompany
         {
             using (var db = new Model1())
             {
-                if (cbAll.IsChecked != true)
-                {
-                    LD = db.Departments.Where(tt => tt.Status == "Active").ToList();
-                }
-                else
-                {
-                    LD = db.Departments.ToList();
-                }
+                LWS = db.Workers.ToList();
             }
-            GBDepers.Header = LD.Count.ToString();
-            DGDepers.ItemsSource = LD;
         }
-        
+
         private void AddNewDepr_Click(object sender, RoutedEventArgs e)
         {
             DepartmentW dw = new DepartmentW();
@@ -73,57 +66,22 @@ namespace myCompany
 
         private void cbAll_Checked(object sender, RoutedEventArgs e)
         {
-            Init1();
+            LoadFile();
         }
 
         private void cbAll_Unchecked(object sender, RoutedEventArgs e)
         {
-            Init1();
-        }
-
-        private void DGDepers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Department dep = null;
-            if (DGDepers.SelectedItem != null)
-            {
-                dep = DGDepers.SelectedItem as Department;
-            }
-
-            if (dep == null)
-            {
-                return;
-            }
-            dep.VS = ViewState.Edit;
-            DepartmentW dw = new DepartmentW(dep);
-            dw.Owner = this;
-            dw.ShowDialog();
-            Init1();
-            Thread.Sleep(164);
-        }
-        private void OnHyperlinkClick(object sender, RoutedEventArgs e)
-        {
-            Department dep = null;
-            if (DGDepers.SelectedItem != null)
-            {
-                dep = DGDepers.SelectedItem as Department;
-            }
-
-            if (dep == null)
-            {
-                return;
-            }
-            dep.VS = ViewState.Edit;
-            DepartmentW dw = new DepartmentW(dep);
-            dw.Owner = this;
-            dw.ShowDialog();
-            Init1();
-            Thread.Sleep(164);
+            LoadFile();
         }
 
         private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string filter = tbSearch.Text;
-            ICollectionView icv = CollectionViewSource.GetDefaultView(DGDepers.ItemsSource);
+            ICollectionView icv = CollectionViewSource.GetDefaultView(DGShiftsView.ItemsSource);
+            if (icv == null)
+            {
+                return;
+            }
 
             if (filter == "")
             {
@@ -133,9 +91,9 @@ namespace myCompany
             {
                 icv.Filter = depr =>
                 {
-                    Department d = depr as Department;
-                    return ((d.DeprName.ToLower().Contains(filter.ToLower()) ||
-                            (d.DeprId.ToString().Contains(filter))
+                    ShiftView d = depr as ShiftView;
+                    return ((d.FullName.ToLower().Contains(filter.ToLower()) ||
+                            (d.WrkrNumber.ToString().Contains(filter))
                             ));
                 };
             }
@@ -148,7 +106,105 @@ namespace myCompany
 
         private void BBrowse_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                tbFullPath.Text = openFileDialog.FileName;
+                LoadFile();
+            }
+        }
 
+        private void LoadFile()
+        {
+            LSHV = new List<ShiftView>();
+            var LSH = LoadShifts.LoadShiftsFromFile(tbFullPath.Text);
+            foreach (var item in LSH)
+            {
+                LSHV.Add(item.Convert2ShiftView());
+            }
+
+            foreach (var item in LSHV)
+            {
+                var w1 = LWS.FirstOrDefault(tt => tt.WrkrNumber == item.WrkrNumber);
+                if (w1 != null)
+                {
+                    item.FullName = w1.FullName;
+                    item.IsHourly = w1.IsHourly;
+                    item.IsGlobally = w1.IsGlobally;
+                    item.GloballyTotal = w1.GloballyTotal;
+                    item.HourlyPrice = w1.HourlyPrice;
+                    item.TripPrice = w1.TripPrice;
+
+                    if (item.IsHourly)
+                    {
+                        item.DialyFeeTotal = Math.Round(
+                                             item.WH100 * item.HourlyPrice * (decimal)1.00 +
+                                             item.WH125 * item.HourlyPrice * (decimal)1.25 +
+                                             item.WH150 * item.HourlyPrice * (decimal)1.50 +
+                                             item.WH200 * item.HourlyPrice * (decimal)2.00 +
+                                             item.TripPrice, 2);
+                    }
+                    if (w1.Status != "Active")
+                    {
+                        item.Error = "NotActive";
+                    }
+                }
+                else
+                {
+                    item.Error = "NotFound";
+                }
+            }
+            LSHV = LSHV.OrderBy(tt => tt.WrkrNumber).ThenBy(tt => tt.WHDate).ToList();
+
+            if (!(bool)cbAll.IsChecked)
+            {
+                LSHV = LSHV.Where(tt => tt.Error == "").ToList();
+            }
+
+            GBShiftsView.Header = LSHV.Count.ToString();
+            DGShiftsView.ItemsSource = LSHV;
+
+        }
+
+        private void BSave_Click(object sender, RoutedEventArgs e)
+        {
+            List<Shift> LSH = new List<Shift>();
+
+            foreach (var item in LSHV)
+            {
+                LSH.Add(item.Convert2Shift());
+            }
+
+            using (var db = new Model1())
+            {
+                db.Shifts.AddRange(LSH);
+                db.SaveChanges();
+                bSave.IsEnabled = false;
+            }
+
+            this.Close();
+        }
+
+        private void DGShiftsView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //ShiftView dep = null;
+            //if (DGShiftsView.SelectedItem != null)
+            //{
+            //    dep = DGShiftsView.SelectedItem as ShiftView;
+            //}
+
+            //if (dep == null)
+            //{
+            //    return;
+            //}
+
+            //dep.VS = ViewState.Edit;
+            //DepartmentW dw = new DepartmentW(dep);
+            //dw.Owner = this;
+            //dw.ShowDialog();
+            //Init1();
+            //Thread.Sleep(164);
         }
     }
 }

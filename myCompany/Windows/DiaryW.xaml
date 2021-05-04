@@ -15,7 +15,7 @@
         WindowStartupLocation="CenterOwner"
         Loaded="Window_Loaded"
         ContentRendered="Window_ContentRendered"
-        Closed="Window_Closed">
+        Closed="Window_Closed">   
     <Grid Margin="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -55,14 +55,16 @@
                        Grid.Row="1"
                        Grid.Column="0"
                        Margin="3"
-                       VerticalAlignment="Center" />
+                       VerticalAlignment="Center" 
+                       Visibility="Collapsed"/>
             <TextBox Name="tbSearch"
                      Grid.Row="1"
                      Grid.Column="1"
                      Width="300"
                      Margin="3"
                      HorizontalAlignment="Left"
-                     TextChanged="TbSearch_TextChanged" />
+                     TextChanged="TbSearch_TextChanged"
+                     Visibility="Collapsed" />
             <TextBlock Text="כלול שגויים"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
@@ -81,12 +83,12 @@
                       Unchecked="cbAll_Unchecked" />
         </Grid>
         <GroupBox Grid.Row="1"
-            Name="GBDepers"
+                  Name="GBShiftsView"
                   Margin="0 8 0 0"
                   HeaderStringFormat="נמצאו {0} רשומות"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch">
-            <DataGrid x:Name="DGDepers"
+            <DataGrid x:Name="DGShiftsView"
                       Margin="3 8 3 8"
                       AutoGenerateColumns="False"
                       Background="Transparent"
@@ -94,7 +96,7 @@
                       CanUserDeleteRows="False"
                       CanUserResizeRows="False"
                       IsReadOnly="True"
-                      MouseDoubleClick="DGDepers_MouseDoubleClick"
+                      MouseDoubleClick="DGShiftsView_MouseDoubleClick"
                       SelectionMode="Single"
                       ItemsSource="{Binding}"
                       AlternatingRowBackground="AliceBlue"
@@ -109,10 +111,15 @@
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Status}"
-                                         Value="InActive">
+                            <DataTrigger Binding="{Binding Error}"
+                                         Value="NotFound">
                                 <Setter Property="Foreground"
-                                        Value="Tomato" />
+                                        Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Error}"
+                                         Value="NotActive">
+                                <Setter Property="Foreground"
+                                        Value="Orange" />
                             </DataTrigger>
                             <Trigger Property="DataGridCell.IsSelected"
                                      Value="True">
@@ -133,34 +140,57 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridHyperlinkColumn Width="Auto"
-                                             Binding="{Binding Path=DeprId}"
-                                             Header="מס מחלקה">
-                        <DataGridHyperlinkColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <EventSetter Event="Hyperlink.Click"
-                                             Handler="OnHyperlinkClick" />
-                            </Style>
-                        </DataGridHyperlinkColumn.ElementStyle>
-                    </DataGridHyperlinkColumn>
                     <DataGridTextColumn Width="Auto"
-                                        Binding="{Binding Path=DeprName}"
-                                        Header="שם מחלקה" />
+                                        Binding="{Binding Path=WrkrNumber}"
+                                        Header="מספר עובד" />
                     <DataGridTextColumn Width="Auto"
-                                        Binding="{Binding Path=DeprDescr}"
-                                        Header="הערות" />
+                                        Binding="{Binding Path=WHDate, StringFormat={}{0:dd/MM/yyyy}}"
+                                        Header="תאריך" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=DOW}"
+                                        Header="יום" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WHIn}"
+                                        Header="כניסה" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WHOut}"
+                                        Header="יציאה" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WHTotalHours}"
+                                        Header="סך שעות" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WH100}"
+                                        Header="100%" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WH125}"
+                                        Header="125%" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WH150}"
+                                        Header="150%" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=WH200}"
+                                        Header="200%" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=DialyFeeTotal}"
+                                        Header="ס''הכ" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=GloballyTotal}"
+                                        Header="גלובלי לחודש" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=TripPrice}"
+                                        Header="נסיעות" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal">
-            <Button Name="AddNewDepr"
+            <Button Name="bSave"
                     Margin="3"
                     Grid.Row="0"
                     Grid.Column="0"
                     HorizontalAlignment="Left"
-                    Click="AddNewDepr_Click"
-                    Content="הוסף מחלקה"
+                    Click="BSave_Click"
+                    Content="שמור"
                     FontSize="19"
                     Height="40"
                     Width="140"
@@ -177,7 +207,7 @@
                     Height="40"
                     Width="140"
                     FontWeight="Medium"
-                    Style="{StaticResource RButton}" />            
+                    Style="{StaticResource RButton}" />
         </StackPanel>
     </Grid>
 </Window>

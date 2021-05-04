@@ -8,28 +8,25 @@
         [Key]
         public int WHId { get; set; }
 
-        [StringLength(100)]
-        public string DOW { get; set; }
+        public int WrkrNumber { get; set; }
 
-        public long WHDateIn { get; set; }   // YYYYMMDDHHMM
+        public int WHDate { get; set; }   // YYYYMMDD
 
-        public long WHDateOut { get; set; }  // YYYYMMDDHHMM
+        [StringLength(10)]
+        public string WHIn { get; set; }   // HHMM
 
-        public int Numer { get; set; }
+        [StringLength(10)]
+        public string WHOut { get; set; }  // HHMM
 
         public decimal WHTotalHours { get; set; }
 
-        public decimal WH100P { get; set; }
+        public decimal WH100 { get; set; }
 
-        public decimal WH125P { get; set; }
+        public decimal WH125 { get; set; }
 
-        public decimal WH150P { get; set; }
+        public decimal WH150 { get; set; }
 
-        public decimal WH175P { get; set; }
-
-        public decimal WH200P { get; set; }
-
-        public int WrkrNumber { get; set; }
+        public decimal WH200 { get; set; }
 
         public bool IsHourly { get; set; }
 
@@ -49,12 +46,30 @@
 
         public Shift()
         {
-            Numer = 1;
             VS = ViewState.View;
             Status = "פעיל";
         }
 
-
-
+        public ShiftView Convert2ShiftView()
+        {
+            ShiftView shv = new ShiftView();
+            shv.WHId = this.WHId;
+            shv.WrkrNumber = this.WrkrNumber;
+            shv.WHDate = this.WHDate.INT2Date();
+            shv.DOW = shv.WHDate.DayOfWeek;
+            shv.WHIn = this.WHIn;
+            shv.WHOut = this.WHOut;
+            shv.WHTotalHours = this.WHTotalHours;
+            shv.WH100 = this.WH100;
+            shv.WH125 = this.WH125;
+            shv.WH150 = this.WH150;
+            shv.WH200 = this.WH200;
+            shv.IsHourly = this.IsHourly;
+            shv.HourlyPrice = this.HourlyPrice;
+            shv.TripPrice = this.TripPrice;
+            shv.IsGlobally = this.IsGlobally;
+            shv.GloballyTotal = this.GloballyTotal;
+            return shv;
+        }
     }
 }

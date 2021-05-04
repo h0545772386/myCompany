@@ -34,23 +34,19 @@ namespace myCompany
                 .HasPrecision(6, 2);
 
             modelBuilder.Entity<Shift>()
-                .Property(e => e.WH100P)
+                .Property(e => e.WH100)
                 .HasPrecision(6, 2);
 
             modelBuilder.Entity<Shift>()
-                .Property(e => e.WH125P)
+                .Property(e => e.WH125)
                 .HasPrecision(6, 2);
 
             modelBuilder.Entity<Shift>()
-                .Property(e => e.WH150P)
+                .Property(e => e.WH150)
                 .HasPrecision(6, 2);
 
             modelBuilder.Entity<Shift>()
-                .Property(e => e.WH175P)
-                .HasPrecision(6, 2);
-
-            modelBuilder.Entity<Shift>()
-                .Property(e => e.WH200P)
+                .Property(e => e.WH200)
                 .HasPrecision(6, 2);
 
             modelBuilder.Entity<Shift>()

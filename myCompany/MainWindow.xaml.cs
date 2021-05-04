@@ -29,6 +29,14 @@ namespace myCompany
 
             if (GlobalsVars.LoggedWorker == null)
                 Application.Current.Shutdown();   // סוגרים את כל האפליקציה בגלל שלא הצליח להיכנס עם שם משתמש וסיסמה 
+
+
+            if (!GlobalsVars.LoggedWorker.IsManager)
+            {
+                WorkerShiftsW wsw = new WorkerShiftsW();
+                wsw.ShowDialog();
+                Application.Current.Shutdown();   // סוגרים את כל האפליקציה בגלל שלא הצליח להיכנס עם שם משתמש וסיסמה 
+            }
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)

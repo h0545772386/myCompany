@@ -28,17 +28,15 @@ CREATE TABLE [dbo].[Workers](
 
 CREATE TABLE [dbo].[Shifts](
 	[WHId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	[DOW] [nvarchar](100) NULL DEFAULT ' ',
-	[WHDateIn] [bigint] NOT NULL DEFAULT 0,     /* YYYYMMDDHHMM */
-	[WHDateOut] [bigint] NOT NULL DEFAULT 0,    /* YYYYMMDDHHMM */
-	[Numer] [int] NOT NULL DEFAULT 0,
-	[WHTotalHours] [decimal] (6, 2) NOT NULL DEFAULT 0,
-	[WH100P] [decimal] (6, 2) NOT NULL DEFAULT 0,  
-	[WH125P] [decimal] (6, 2) NOT NULL DEFAULT 0,
-	[WH150P] [decimal] (6, 2) NOT NULL DEFAULT 0,
-	[WH175P] [decimal] (6, 2) NOT NULL DEFAULT 0,
-	[WH200P] [decimal] (6, 2) NOT NULL DEFAULT 0,
 	[WrkrNumber] [int] NOT NULL DEFAULT 0,
+	[WHDate] [int] NOT NULL DEFAULT 0,  /* YYYYMMDD */
+	[WHIn] [nvarchar](100) NULL,    /* HHMM */
+	[WHOut] [nvarchar](100) NULL,   /* HHMM */
+	[WHTotalHours] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WH100] [decimal] (6, 2) NOT NULL DEFAULT 0,  
+	[WH125] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WH150] [decimal] (6, 2) NOT NULL DEFAULT 0,
+	[WH200] [decimal] (6, 2) NOT NULL DEFAULT 0,
 	[IsHourly] [bit] NOT NULL DEFAULT 0,
 	[HourlyPrice] [decimal] (6, 2) NOT NULL DEFAULT 0,
 	[TripPrice] [decimal] (6, 2) NOT NULL DEFAULT 0,	
