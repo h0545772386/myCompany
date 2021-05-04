@@ -45,7 +45,9 @@ namespace myCompany
 
         private void bDiary_Click(object sender, RoutedEventArgs e)
         {
-
+            DiaryW dryw = new DiaryW();
+            dryw.Owner = this;
+            dryw.ShowDialog();
         }
 
         private void bTimeTable_Click(object sender, RoutedEventArgs e)
@@ -60,12 +62,15 @@ namespace myCompany
 
         private void bSetting_Click(object sender, RoutedEventArgs e)
         {
-
+            SettingsW sw = new SettingsW();
+            sw.Owner = this;
+            sw.ShowDialog();
         }
 
         private void bExit_Click(object sender, RoutedEventArgs e)
         {
-
+            Application.Current.Shutdown();
+            return;
         }
     }
 }

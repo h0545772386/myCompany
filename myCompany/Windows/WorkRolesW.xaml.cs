@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace myCompany
 {
@@ -21,7 +15,7 @@ namespace myCompany
     /// </summary>
     public partial class WorkRolesW : Window
     {
-        List<Worker> LW;
+        private List<WorkRole> WR;
         public WorkRolesW()
         {
             InitializeComponent();
@@ -49,28 +43,23 @@ namespace myCompany
         {
             using (var db = new Model1())
             {
-                if (GlobalsVars.LoggedWorker.IsSysAdmin)
+                if (cbAll.IsChecked != true)
                 {
-                    if (cbAll.IsChecked != true)
-                        LW = db.Workers.Where(tt => tt.Status == "Active").ToList();
-                    else
-                        LW = db.Workers.ToList();
+                    WR = db.WorkRoles.Where(tt => tt.Status == "Active").ToList();
                 }
                 else
                 {
-                    if (cbAll.IsChecked != true)
-                        LW = db.Workers.Where(tt => tt.Status == "Active" && tt.ManagerId == GlobalsVars.LoggedWorker.WrkrNumber).ToList();
-                    else
-                        LW = db.Workers.Where(tt => tt.ManagerId == GlobalsVars.LoggedWorker.WrkrNumber).ToList();
+                    WR = db.WorkRoles.ToList();
                 }
-                GBWorkers.Header = LW.Count.ToString();
-                DGWorkers.ItemsSource = LW;
+
+                GBWrkRols.Header = WR.Count.ToString();
+                DGWrkRols.ItemsSource = WR;
             }
         }
 
-        private void AddNewWorker_Click(object sender, RoutedEventArgs e)
+        private void AddNewRole_Click(object sender, RoutedEventArgs e)
         {
-            WorkerW ww = new WorkerW();
+            WorkRoleW ww = new WorkRoleW();
             ww.Owner = this;
             ww.ShowDialog();
             Init1();
@@ -93,26 +82,26 @@ namespace myCompany
             Init1();
         }
 
-        private void DGWorkers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void DGWrkRols_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
         }
         private void OnHyperlinkClick(object sender, RoutedEventArgs e)
         {
-            Worker worker = null;
-            if (DGWorkers.SelectedItem != null)
+            WorkRole wr = null;
+            if (DGWrkRols.SelectedItem != null)
             {
-                worker = DGWorkers.SelectedItem as Worker;
+                wr = DGWrkRols.SelectedItem as WorkRole;
             }
 
-            if (worker == null)
+            if (wr == null)
             {
                 return;
             }
-            worker.VS = ViewState.Edit;
-            WorkerW ww = new WorkerW(worker);
-            ww.Owner = this;
-            ww.ShowDialog();
+            wr.VS = ViewState.Edit;
+            WorkRoleW wrw = new WorkRoleW(wr);
+            wrw.Owner = this;
+            wrw.ShowDialog();
             Init1();
             Thread.Sleep(164);
         }
@@ -120,7 +109,7 @@ namespace myCompany
         private void TbSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             string filter = tbSearch.Text;
-            ICollectionView icv = CollectionViewSource.GetDefaultView(DGWorkers.ItemsSource);
+            ICollectionView icv = CollectionViewSource.GetDefaultView(DGWrkRols.ItemsSource);
 
             if (filter == "")
             {
@@ -130,14 +119,9 @@ namespace myCompany
             {
                 icv.Filter = wrkr =>
                 {
-                    Worker w = wrkr as Worker;
-                    return ((w.FullName.ToLower().Contains(filter.ToLower()) ||
-                            //(w.WrkrDepartment.ToLower().Contains(filter.ToLower())) ||
-                            //(w.WrkrRole.ToLower().Contains(filter.ToLower())) ||
-                            (w.Phone1.ToLower().Contains(filter.ToLower())) ||
-                            (w.Phone2.ToLower().Contains(filter.ToLower())) ||
-                            (w.WrkrNumber.ToString().Contains(filter)) ||
-                            (w.ManagerId.ToString().Contains(filter))
+                    WorkRole w = wrkr as WorkRole;
+                    return ((w.RoleName.ToLower().Contains(filter.ToLower()) ||
+                            (w.RolId.ToString().Contains(filter))
                             ));
                 };
             }

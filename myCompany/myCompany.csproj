@@ -68,11 +68,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\Department.cs" />
+    <Compile Include="Classes\LoadShifts.cs" />
     <Compile Include="Classes\Shift.cs" />
     <Compile Include="Classes\WorkRole.cs" />
     <Compile Include="Classes\DB_Provider.cs" />
     <Compile Include="Classes\UTILS.cs" />
     <Compile Include="Classes\Worker.cs" />
+    <Compile Include="Windows\DiaryW.xaml.cs">
+      <DependentUpon>DiaryW.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\WorkerDetailsW.xaml.cs">
       <DependentUpon>WorkerDetailsW.xaml</DependentUpon>
     </Compile>
@@ -88,11 +92,11 @@
     <Compile Include="Windows\SettingsW.xaml.cs">
       <DependentUpon>SettingsW.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\DerprmntsW.xaml.cs">
-      <DependentUpon>DerprmntsW.xaml</DependentUpon>
+    <Compile Include="Windows\DepartmentsW.xaml.cs">
+      <DependentUpon>DepartmentsW.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\DerprmntW.xaml.cs">
-      <DependentUpon>DerprmntW.xaml</DependentUpon>
+    <Compile Include="Windows\DepartmentW.xaml.cs">
+      <DependentUpon>DepartmentW.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WorkerW.xaml.cs">
       <DependentUpon>WorkerW.xaml</DependentUpon>
@@ -106,6 +110,10 @@
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DiaryW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\WorkerDetailsW.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -147,11 +155,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\DerprmntsW.xaml">
+    <Page Include="Windows\DepartmentsW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\DerprmntW.xaml">
+    <Page Include="Windows\DepartmentW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

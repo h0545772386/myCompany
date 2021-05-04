@@ -238,6 +238,7 @@ namespace myCompany
         private void bBack_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            this.Owner.Activate();
             return;
         }
 

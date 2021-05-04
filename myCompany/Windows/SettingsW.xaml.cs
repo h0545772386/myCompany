@@ -34,26 +34,7 @@ namespace myCompany
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            Init1();
-        }
 
-        private void Init1()
-        {
-            var lw = this.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                GetRecords();
-            }));
-        }
-
-        private void GetRecords()
-        {
-            using (var db = new Model1())
-            {
-                //LW = db.Workers.Where(tt => tt.Status != "Deleted").ToList();
-                Thread.Sleep(5000);
-                // DGWorkers.ItemsSource = LW;
-                // GBWorkers.ItemsSource = LW.Count;  
-            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -63,17 +44,23 @@ namespace myCompany
 
         private void bDepartments_Click(object sender, RoutedEventArgs e)
         {
-
+            DepartmentsW dw = new DepartmentsW();
+            dw.Owner = this;
+            dw.ShowDialog();
         }
 
         private void bWorkRoles_Click(object sender, RoutedEventArgs e)
         {
-
+            WorkRolesW ww = new WorkRolesW();
+            ww.Owner = this;
+            ww.ShowDialog();
         }
 
         private void bCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
+            this.Owner.Activate();
+            return;
         }
     }
 }

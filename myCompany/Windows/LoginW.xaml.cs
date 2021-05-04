@@ -24,7 +24,7 @@ namespace myCompany
         {
             InitializeComponent();
             GlobalsVars.LoggedWorker = null;
-            if(Environment.MachineName == "ASUS-X509J")
+            if(Environment.MachineName == "ASUS-X509J" || Environment.MachineName == "PC164")
             {
                 txUser.Text = "FN1";
                 txPassWord.Password = "fn1";

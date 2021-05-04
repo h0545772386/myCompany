@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Spatial;
 
 namespace myCompany
 {
@@ -20,5 +17,14 @@ namespace myCompany
 
         [StringLength(100)]
         public string Status { get; set; }
+
+        [NotMapped]
+        public ViewState VS { get; set; }
+
+        public Department()
+        {
+            VS = ViewState.View;
+            Status = "פעיל";
+        }
     }
 }

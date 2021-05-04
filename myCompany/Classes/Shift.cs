@@ -1,12 +1,7 @@
 ﻿namespace myCompany
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-    using System.Runtime.CompilerServices;
 
     public class Shift
     {
@@ -16,13 +11,11 @@
         [StringLength(100)]
         public string DOW { get; set; }
 
-        public int WHDate { get; set; }
+        public long WHDateIn { get; set; }   // YYYYMMDDHHMM
+
+        public long WHDateOut { get; set; }  // YYYYMMDDHHMM
 
         public int Numer { get; set; }
-
-        public int WHIn { get; set; }
-
-        public int WHOut { get; set; }
 
         public decimal WHTotalHours { get; set; }
 
@@ -50,6 +43,18 @@
 
         [StringLength(100)]
         public string Status { get; set; }
+
+        [NotMapped]
+        public ViewState VS { get; set; }
+
+        public Shift()
+        {
+            Numer = 1;
+            VS = ViewState.View;
+            Status = "פעיל";
+        }
+
+
 
     }
 }

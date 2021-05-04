@@ -82,7 +82,7 @@
                      Margin="3"
                      HorizontalAlignment="Left"
                      TextChanged="TbSearch_TextChanged" />
-            <TextBlock Text="כלול מחוקים"
+            <TextBlock Text="כלול לא פעילים"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
                        Margin="3"

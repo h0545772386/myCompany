@@ -26,13 +26,12 @@ CREATE TABLE [dbo].[Workers](
 	[IsGlobally] [bit] NOT NULL DEFAULT 0,	
 	[GloballyTotal] [decimal] (10, 2) NOT NULL DEFAULT 0)
 
-CREATE TABLE [dbo].[WorkHours](
+CREATE TABLE [dbo].[Shifts](
 	[WHId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[DOW] [nvarchar](100) NULL DEFAULT ' ',
-	[WHDate] [int] NOT NULL DEFAULT 0,    /* YYYYMMDD */
+	[WHDateIn] [bigint] NOT NULL DEFAULT 0,     /* YYYYMMDDHHMM */
+	[WHDateOut] [bigint] NOT NULL DEFAULT 0,    /* YYYYMMDDHHMM */
 	[Numer] [int] NOT NULL DEFAULT 0,
-	[WHIn] [int] NOT NULL DEFAULT 0,     /* HHMM */
-	[WHOut] [int] NOT NULL DEFAULT 0,    /* HHMM */
 	[WHTotalHours] [decimal] (6, 2) NOT NULL DEFAULT 0,
 	[WH100P] [decimal] (6, 2) NOT NULL DEFAULT 0,  
 	[WH125P] [decimal] (6, 2) NOT NULL DEFAULT 0,
