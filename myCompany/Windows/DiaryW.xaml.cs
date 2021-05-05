@@ -138,6 +138,7 @@ namespace myCompany
 
                     if (item.IsHourly)
                     {
+                        // חישוב שכר שעות לפי חלוקה
                         item.DialyFeeTotal = Math.Round(
                                              item.WH100 * item.HourlyPrice * (decimal)1.00 +
                                              item.WH125 * item.HourlyPrice * (decimal)1.25 +
@@ -181,6 +182,7 @@ namespace myCompany
                 var save_shifts = db.Shifts.ToList().Where(x => LSH.Any(y => y.WHDate == x.WHDate)).ToList();  // שליפת רשומות קיימות לפי תאריך
                 foreach (var item in LSH)
                 {
+                    // אם המנהל יטען את הקובץ יותר מפעם לא יהיה משמרות כפולות לעובד
                     var sh = save_shifts.FirstOrDefault(tt => tt.WrkrNumber == item.WrkrNumber && // בדיקה אם קיימת רשומה כבר עם הנתונים
                                                               tt.WHDate == item.WHDate &&
                                                               tt.WHIn == item.WHIn &&

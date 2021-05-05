@@ -76,11 +76,14 @@
     <Compile Include="Classes\DB_Provider.cs" />
     <Compile Include="Classes\UTILS.cs" />
     <Compile Include="Classes\Worker.cs" />
+    <Compile Include="TimePickerUC.xaml.cs">
+      <DependentUpon>TimePickerUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DiaryW.xaml.cs">
       <DependentUpon>DiaryW.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\WorkerShiftsW.xaml.cs">
-      <DependentUpon>WorkerShiftsW.xaml</DependentUpon>
+    <Compile Include="Windows\ShiftW.xaml.cs">
+      <DependentUpon>ShiftW.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WorkerDetailsW.xaml.cs">
       <DependentUpon>WorkerDetailsW.xaml</DependentUpon>
@@ -116,11 +119,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TimePickerUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\DiaryW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Windows\WorkerShiftsW.xaml">
+    <Page Include="Windows\ShiftW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

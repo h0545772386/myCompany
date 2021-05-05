@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="myCompany.TimePickerUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:myCompany"
+             mc:Ignorable="d"
+             FlowDirection="RightToLeft">
+    <Grid>
+        <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBox Name="tbHH"
+                     Text="{Binding HH, FallbackValue=00}"
+                     TextAlignment="Center"
+                     VerticalAlignment="Center"
+                     MouseWheel="TbHH_MouseWheel"
+                     PreviewTextInput="TbHH_PreviewTextInput" />
+            <TextBox Text=":"
+                     TextAlignment="Center"
+                     VerticalAlignment="Center" />
+            <TextBox Name="tbMM"
+                     Text="{Binding MM, FallbackValue=00}"
+                     TextAlignment="Center"
+                     VerticalAlignment="Center"
+                     MouseWheel="TbMM_MouseWheel"
+                     PreviewTextInput="TbMM_PreviewTextInput" />
+        </StackPanel>
+
+    </Grid>
+</UserControl>

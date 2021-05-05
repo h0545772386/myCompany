@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace myCompany
 {
@@ -20,6 +8,7 @@ namespace myCompany
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool AfterShow;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,13 +17,15 @@ namespace myCompany
             lgnw.ShowDialog();
 
             if (GlobalsVars.LoggedWorker == null)
+            {
                 Application.Current.Shutdown();   // סוגרים את כל האפליקציה בגלל שלא הצליח להיכנס עם שם משתמש וסיסמה 
-
+                return;
+            }
 
             if (!GlobalsVars.LoggedWorker.IsManager)
             {
-                WorkerShiftsW wsw = new WorkerShiftsW();
-                wsw.ShowDialog();
+                WorkerDetailsW wdw = new WorkerDetailsW(GlobalsVars.LoggedWorker);
+                wdw.ShowDialog();
                 Application.Current.Shutdown();   // סוגרים את כל האפליקציה בגלל שלא הצליח להיכנס עם שם משתמש וסיסמה 
             }
         }
