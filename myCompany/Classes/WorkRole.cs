@@ -20,13 +20,9 @@ namespace myCompany
 
         [StringLength(100)]
         public string Status { get; set; }
-
-        [NotMapped]
-        public ViewState VS { get; set; }
-
+        
         public WorkRole()
         {
-            VS = ViewState.View;
             Status = "פעיל";
         }
     }

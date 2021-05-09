@@ -1,14 +1,9 @@
 ﻿namespace myCompany
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-    using System.Runtime.CompilerServices;
 
-    public partial class Worker  //: INotifyPropertyChanged
+    public partial class Worker
     {
 
         [Key]
@@ -83,22 +78,17 @@
         public string ManagerFullName { get; set; }
 
         [NotMapped]
-        public ViewState VS { get; set; }
+        public string DeprName { get; set; }
+
+        [NotMapped]
+        public string RoleName { get; set; }
+
 
         public Worker()
         {
-            VS = ViewState.View;
             Phone1 = "";
             Phone2 = "";
             Status = "פעיל";
         }
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //// Create the OnPropertyChanged method to raise the event
-        //// The calling member's name will be used as the parameter.
-        //private void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
     }
 }

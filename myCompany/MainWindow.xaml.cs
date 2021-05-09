@@ -8,23 +8,22 @@ namespace myCompany
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool AfterShow;
         public MainWindow()
         {
             InitializeComponent();
-            // פץח חלון כניסה למערכת
+            // פתח חלון כניסה למערכת
             LoginW lgnw = new LoginW();
             lgnw.ShowDialog();
 
-            if (GlobalsVars.LoggedWorker == null)
+            if (App.LoggedWorker == null)
             {
                 Application.Current.Shutdown();   // סוגרים את כל האפליקציה בגלל שלא הצליח להיכנס עם שם משתמש וסיסמה 
                 return;
             }
 
-            if (!GlobalsVars.LoggedWorker.IsManager)
+            if (!App.LoggedWorker.IsManager)
             {
-                WorkerDetailsW wdw = new WorkerDetailsW(GlobalsVars.LoggedWorker);
+                WorkerDetailsW wdw = new WorkerDetailsW(App.LoggedWorker);
                 wdw.ShowDialog();
                 Application.Current.Shutdown();   // סוגרים את כל האפליקציה בגלל שלא הצליח להיכנס עם שם משתמש וסיסמה 
             }

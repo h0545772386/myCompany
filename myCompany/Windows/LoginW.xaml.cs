@@ -23,7 +23,7 @@ namespace myCompany
         public LoginW()
         {
             InitializeComponent();
-            GlobalsVars.LoggedWorker = null;
+            App.LoggedWorker = null;
             if(Environment.MachineName == "ASUS-X509J" || Environment.MachineName == "PC164")
             {
                 txUser.Text = "FN1";
@@ -40,7 +40,7 @@ namespace myCompany
             }
             if (w != null)
             {
-                GlobalsVars.LoggedWorker = w;
+                App.LoggedWorker = w;
                 this.Close();
                 return;
             }

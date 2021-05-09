@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
-using System.Linq;
 using System.Windows;
 
 namespace myCompany
@@ -23,7 +22,6 @@ namespace myCompany
             else
             {
                 this.Work_role = new WorkRole();
-                this.Work_role.VS = ViewState.New;
                 cboStatus.SelectedValue = "פעיל";
             }
         }
@@ -47,11 +45,11 @@ namespace myCompany
                 return;
             }
 
-            if (Work_role.VS == ViewState.New)
+            if (Work_role.RolId == 0)
             {
                 CreateNew();
             }
-            else if (Work_role.VS == ViewState.Edit)
+            else if (Work_role.RolId != 0)
             {
                 UPdateExist();
             }

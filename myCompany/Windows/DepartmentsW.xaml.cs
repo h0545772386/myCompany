@@ -93,7 +93,7 @@ namespace myCompany
             {
                 return;
             }
-            dep.VS = ViewState.Edit;
+
             DepartmentW dw = new DepartmentW(dep);
             dw.Owner = this;
             dw.ShowDialog();
@@ -112,7 +112,7 @@ namespace myCompany
             {
                 return;
             }
-            dep.VS = ViewState.Edit;
+
             DepartmentW dw = new DepartmentW(dep);
             dw.Owner = this;
             dw.ShowDialog();

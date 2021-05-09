@@ -65,7 +65,10 @@ namespace myCompany
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            this.Owner.Activate();
+            if (this.Owner != null)
+            {
+                this.Owner.Activate();
+            }
         }
 
         private void dpDate1_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -80,7 +83,7 @@ namespace myCompany
 
         private void DGShiftsView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-             ShiftView shv = null;
+            ShiftView shv = null;
             if (DGShiftsView.SelectedItem != null)
             {
                 shv = DGShiftsView.SelectedItem as ShiftView;
@@ -93,11 +96,21 @@ namespace myCompany
 
             var sh = shv.Convert2Shift();
 
-            sh.VS = ViewState.Edit;
             ShiftW sw = new ShiftW(sh);
             sw.worker = worker;
             sw.Owner = this;
             sw.ShowDialog();
+            Init1();
+            Thread.Sleep(164);
+        }
+
+        private void BAddShift_Click(object sender, RoutedEventArgs e)
+        {
+            ShiftW sw = new ShiftW();
+            sw.worker = worker;
+            sw.Owner = this;
+            sw.ShowDialog();
+
             Init1();
             Thread.Sleep(164);
         }

@@ -12,10 +12,20 @@ namespace myCompany
         public Worker worker { get; set; }
         private Shift shift;
 
-        public ShiftW(Shift shift)
+        public ShiftW(Shift shift = null)
         {
             InitializeComponent();
-            this.shift = shift;
+            if (shift != null)
+            {
+                this.shift = shift;
+            }
+            else
+            {
+                this.shift = new Shift();
+                cbDeleted.Visibility = Visibility.Collapsed;
+                tb_cbDeleted.Visibility = Visibility.Collapsed;
+                dpDate1.SelectedDate = DateTime.Today;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -30,6 +40,11 @@ namespace myCompany
 
         private void Init1()
         {
+            if (shift.WHId == 0)
+            {
+                return;
+            }
+
             var lw = this.Dispatcher.BeginInvoke(new Action(() =>
             {
                 GetRecords();
@@ -58,9 +73,19 @@ namespace myCompany
             CalcFee();
             using (var db = new Model1())
             {
-                db.Shifts.AddOrUpdate(shift);
+                if (shift.WHId != 0)
+                {
+                    db.Shifts.AddOrUpdate(shift);
+                }
+
+                if (shift.WHId == 0)
+                {
+                    db.Shifts.Add(shift);
+                }
+
                 db.SaveChanges();
             }
+
             this.Close();
             this.Owner.Activate();
             return;
@@ -68,23 +93,62 @@ namespace myCompany
 
         private void CalcFee()
         {
-            //var w1 = worker;
-            //shift.IsHourly = w1.IsHourly;
-            //shift.IsGlobally = w1.IsGlobally;
-            //shift.GloballyTotal = w1.GloballyTotal;
-            //shift.HourlyPrice = w1.HourlyPrice;
-            //shift.TripPrice = w1.TripPrice;
+            shift.WrkrNumber = worker.WrkrNumber;
+            shift.IsHourly = worker.IsHourly;
+            shift.IsGlobally = worker.IsGlobally;
+            shift.GloballyTotal = worker.GloballyTotal;
+            shift.HourlyPrice = worker.HourlyPrice;
+            shift.TripPrice = worker.TripPrice;
 
-            //if (shift.IsHourly)
-            //{
-            //    // חישוב שכר שעות לפי חלוקה
-            //    shift.DialyFeeTotal = Math.Round(
-            //                         shift.WH100 * shift.HourlyPrice * (decimal)1.00 +
-            //                         shift.WH125 * shift.HourlyPrice * (decimal)1.25 +
-            //                         shift.WH150 * shift.HourlyPrice * (decimal)1.50 +
-            //                         shift.WH200 * shift.HourlyPrice * (decimal)2.00 +
-            //                         shift.TripPrice, 2);
-            //}
+            // בניית שעות משמרת
+            DateTime d_in = shift.WHDate.INT2Date();
+            DateTime d_out = d_in;
+            string[] arr = shift.WHIn.Split(':');
+            d_in = d_in.AddHours(Convert.ToInt32(arr[0])).AddMinutes(Convert.ToInt32(arr[1]));
+            arr = shift.WHOut.Split(':');
+            d_out = d_out.AddHours(Convert.ToInt32(arr[0])).AddMinutes(Convert.ToInt32(arr[1]));
+            if (d_in > d_out)
+            {
+                d_out = d_out.AddDays(1);
+                shift.WHOut = UTILS.ConvertOver24(shift.WHOut);
+            }
+            shift.WHTotalHours = Math.Round(Convert.ToDecimal((d_out - d_in).TotalHours), 2);
+
+            if (shift.WHDate.INT2Date().DayOfWeek == DayOfWeek.Saturday)
+            {
+                shift.WH200 = shift.WHTotalHours;
+            }
+            else
+            {
+                if (shift.WHTotalHours <= 8)
+                {
+                    shift.WH100 = shift.WHTotalHours;
+                }
+                else
+                {
+                    decimal TotalHours = shift.WHTotalHours;
+                    if (TotalHours > 8)
+                    {
+                        shift.WH100 = 8;
+                        TotalHours -= 8;
+                    }
+                    if (TotalHours <= 2)
+                    {
+                        shift.WH125 = TotalHours;
+                        TotalHours = 0;
+                    }
+                    else
+                    {
+                        shift.WH125 = 2;
+                        TotalHours -= 2;
+                    }
+                    if (TotalHours > 0)
+                    {
+                        shift.WH150 = TotalHours;
+                        TotalHours = 0;
+                    }
+                }
+            }
         }
 
         private void bBack_Click(object sender, RoutedEventArgs e)

@@ -112,9 +112,6 @@
     <Compile Include="Windows\WorkersW.xaml.cs">
       <DependentUpon>WorkersW.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Window2Copy.xaml.cs">
-      <DependentUpon>Window2Copy.xaml</DependentUpon>
-    </Compile>
     <Page Include="Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,10 +183,6 @@
     <Page Include="Windows\WorkersW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\Window2Copy.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -98,7 +98,7 @@ namespace myCompany
             {
                 return;
             }
-            wr.VS = ViewState.Edit;
+
             WorkRoleW wrw = new WorkRoleW(wr);
             wrw.Owner = this;
             wrw.ShowDialog();

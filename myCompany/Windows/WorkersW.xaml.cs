@@ -41,9 +41,14 @@ namespace myCompany
 
         private void GetRecords()
         {
+            List<WorkRole> LWRL = new List<WorkRole>();
+            List<Department> LDPS = new List<Department>();
             using (var db = new Model1())
             {
-                if (GlobalsVars.LoggedWorker.IsSysAdmin)
+                LWRL = db.WorkRoles.ToList();
+                LDPS = db.Departments.ToList();
+
+                if (App.LoggedWorker.IsSysAdmin)
                 {
                     if (cbAll.IsChecked != true)
                     {
@@ -58,18 +63,25 @@ namespace myCompany
                 {
                     if (cbAll.IsChecked != true)
                     {
-                        LW = db.Workers.Where(tt => tt.Status == "Active" && tt.ManagerId == GlobalsVars.LoggedWorker.WrkrNumber).ToList();
+                        LW = db.Workers.Where(tt => tt.Status == "Active" && tt.ManagerId == App.LoggedWorker.WrkrNumber).ToList();
                     }
                     else
                     {
-                        LW = db.Workers.Where(tt => tt.ManagerId == GlobalsVars.LoggedWorker.WrkrNumber).ToList();
+                        LW = db.Workers.Where(tt => tt.ManagerId == App.LoggedWorker.WrkrNumber).ToList();
                     }
                 }
 
-                if (!GlobalsVars.LoggedWorker.IsManager)
+                if (!App.LoggedWorker.IsManager)
                 {
-                    LW = db.Workers.Where(tt => tt.WrkrNumber == GlobalsVars.LoggedWorker.WrkrNumber).ToList();
+                    LW = db.Workers.Where(tt => tt.WrkrNumber == App.LoggedWorker.WrkrNumber).ToList();
                 }
+
+                foreach (var worker in LW)
+                {
+                    worker.RoleName = LWRL.FirstOrDefault(tt => tt.RolId == worker.RolId) != null ? LWRL.FirstOrDefault(tt => tt.RolId == worker.RolId).RoleName : "";
+                    worker.DeprName = LDPS.FirstOrDefault(tt => tt.DeprId == worker.DeprId) != null ? LDPS.FirstOrDefault(tt => tt.DeprId == worker.DeprId).DeprName : "";
+                }
+                
                 GBWorkers.Header = LW.Count.ToString();
                 DGWorkers.ItemsSource = LW;
             }
@@ -112,7 +124,6 @@ namespace myCompany
                 return;
             }
 
-            worker.VS = ViewState.Edit;
             WorkerW ww = new WorkerW(worker);
             ww.Owner = this;
             ww.ShowDialog();

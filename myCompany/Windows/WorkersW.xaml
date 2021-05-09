@@ -6,10 +6,13 @@
         xmlns:local="clr-namespace:myCompany"
         mc:Ignorable="d"
         FontSize="19"
+        Width="1024"
+        Height="768"
+        ResizeMode="NoResize"
         FontFamily="Arial"
         FontWeight="Regular"
         Background="FloralWhite"
-        Title="תוכנה לניהול עובדים"
+        Title="ניהול חברה ועובדים"
         FlowDirection="RightToLeft"
         WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterOwner"
@@ -166,8 +169,11 @@
                                         Binding="{Binding Path=FullName}"
                                         Header="שם עובד" />
                     <DataGridTextColumn Width="Auto"
-                                        Binding="{Binding Path=WrkrDepartment}"
+                                        Binding="{Binding Path=DeprName}"
                                         Header="מחלקה" />
+                    <DataGridTextColumn Width="Auto"
+                                        Binding="{Binding Path=RoleName}"
+                                        Header="תפקיד" />
                     <DataGridTextColumn Width="Auto"
                                         Binding="{Binding Path=Email}"
                                         Header="כתובת מייל" />

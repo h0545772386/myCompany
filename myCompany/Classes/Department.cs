@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace myCompany
 {
+    // ניהול המחלקות בארגון
+    //  יש טבלה בבסיס הנתונים שמחזיקה את שמות המחלקות בחברה
+
     public partial class Department
     {
         [Key]
@@ -18,12 +20,9 @@ namespace myCompany
         [StringLength(100)]
         public string Status { get; set; }
 
-        [NotMapped]
-        public ViewState VS { get; set; }
 
         public Department()
         {
-            VS = ViewState.View;
             Status = "פעיל";
         }
     }

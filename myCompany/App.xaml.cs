@@ -13,6 +13,7 @@ namespace myCompany
     /// </summary>
     public partial class App : Application
     {
+        public static Worker LoggedWorker { get; set; }
         public App()
         {
 

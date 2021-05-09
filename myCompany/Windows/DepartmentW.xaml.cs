@@ -21,7 +21,6 @@ namespace myCompany
             else
             {
                 this.department = new Department();
-                this.department.VS = ViewState.New;
                 cboStatus.SelectedValue = "פעיל";
             }
         }
@@ -45,11 +44,11 @@ namespace myCompany
                 return;
             }
 
-            if (department.VS == ViewState.New)
+            if (department.DeprId == 0)
             {
                 CreateNew();
             }
-            else if (department.VS == ViewState.Edit)
+            else if (department.DeprId != 0)
             {
                 UPdateExist();
             }
