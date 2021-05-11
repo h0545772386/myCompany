@@ -1,6 +1,7 @@
 ﻿namespace myCompany
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Shift
     {
@@ -39,6 +40,9 @@
 
         [StringLength(100)]
         public string Status { get; set; }
+
+        [NotMapped]
+        public int WHMonth { get; set; }
 
         public Shift()
         {

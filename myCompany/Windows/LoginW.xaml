@@ -10,13 +10,12 @@
         Width="330"
         Height="200"
         ResizeMode="NoResize"
+        Background="GhostWhite"
         Title="כניסה למערכת"
         SizeToContent="WidthAndHeight"
         FontSize="19"
         FontFamily="Arial"
-        FontWeight="Regular"
-        Background="FloralWhite"
-        FocusManager.FocusedElement="{Binding ElementName=txUser}">
+        FontWeight="Regular">
     <Grid Margin="3">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

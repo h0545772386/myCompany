@@ -48,14 +48,11 @@ namespace myCompany
             dryw.ShowDialog();
         }
 
-        private void bTimeTable_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void bReports_Click(object sender, RoutedEventArgs e)
         {
-
+            ReportsW rw = new ReportsW();
+            rw.Owner = this;
+            rw.ShowDialog();
         }
 
         private void bSetting_Click(object sender, RoutedEventArgs e)

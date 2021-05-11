@@ -8,16 +8,16 @@
         FontSize="19"
         Width="1024"
         Height="768"
+        Background="GhostWhite"
         FontFamily="Arial"
         FontWeight="Regular"
-        Background="FloralWhite"
         Title="ניהול חברה ועובדים"
         FlowDirection="RightToLeft"
         WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterOwner"
         Loaded="Window_Loaded"
         ContentRendered="Window_ContentRendered"
-        Closed="Window_Closed">   
+        Closed="Window_Closed">
     <Grid Margin="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

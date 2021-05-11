@@ -8,10 +8,10 @@
         Width="600"
         Height="200"
         ResizeMode="NoResize"
+        Background="GhostWhite"
         FontSize="19"
         FontFamily="Arial"
         FontWeight="Regular"
-        Background="FloralWhite"
         Title="ניהול חברה ועובדים"
         FlowDirection="RightToLeft"
         WindowStyle="ThreeDBorderWindow"
@@ -19,9 +19,6 @@
         Loaded="Window_Loaded"
         ContentRendered="Window_ContentRendered"
         Closed="Window_Closed">
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="Bool2Visib" />
-    </Window.Resources>
     <Grid Margin="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

@@ -8,14 +8,14 @@
         Width="500"
         Height="300"
         ResizeMode="NoResize"
+        Background="GhostWhite"
         FlowDirection="RightToLeft"
         WindowStartupLocation="CenterScreen"
         Title="הודעה למשתמש"
         SizeToContent="WidthAndHeight"
         FontSize="19"
         FontFamily="Arial"
-        FontWeight="Regular"
-        Background="FloralWhite">
+        FontWeight="Regular">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

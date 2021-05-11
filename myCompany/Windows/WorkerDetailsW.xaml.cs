@@ -52,12 +52,14 @@ namespace myCompany
             using (var db = new Model1())
             {
                 LSH = db.Shifts.Where(tt => tt.WrkrNumber == worker.WrkrNumber && tt.WHDate >= date_from && tt.WHDate <= date_to && tt.Status == "פעיל").ToList();
+                LSH = LSH.OrderBy(tt => tt.WHDate).ThenBy(tt=>Convert.ToInt32(tt.WHIn.Replace(":",""))).ToList();
             }
 
             foreach (var item in LSH)
             {
                 LSHV.Add(item.Convert2ShiftView());
             }
+
 
             GBShiftsView.Header = LSHV.Count.ToString();
             DGShiftsView.ItemsSource = LSHV;

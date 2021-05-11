@@ -112,5 +112,11 @@ namespace myCompany
             return new DateTime(Year, Month, Day);
         }
 
+        public static int GetMonthFromYYYYMMDD(this int YYYYMMDD)
+        {
+            int Month = (YYYYMMDD / 100) % 100;
+            return Month;
+        }
+
     }
 }
